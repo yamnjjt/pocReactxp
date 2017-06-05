@@ -10,7 +10,8 @@ import TotoStyles = require('./TodoStyles');
 
 enum NavigationRouteId {
     TodoListPanel,
-    EditTodoPanel
+    EditTodoPanel,
+    LoginPanel
 }
 
 const styles = {
@@ -61,6 +62,11 @@ class TodoAppRootView extends RX.Component<null, null> {
                         onDeleteTodo={ this._onPressBack }
                         onSaveTodo={ this._onPressBack }
                     />
+                );
+
+            case NavigationRouteId.LoginPanel:
+                return(
+
                 );
         }
 

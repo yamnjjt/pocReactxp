@@ -12,6 +12,7 @@ import TodoList = require('./TodoList')
 interface SecondPanelProps {
     onNavigateBack: () => void;
     onShowTodoPanel: () => void;
+    onShowLoginPanel: () => void;
 }
 
 const _styles = {
@@ -33,6 +34,11 @@ class TodoListPanel extends RX.Component<SecondPanelProps, null> {
                     <RX.Button style={ TodoStyles.styles.submitButton } onPress={ this._onPressCreateNewTodo }>
                         <RX.Text style={ TodoStyles.styles.buttonText }>
                             Add reminder
+                        </RX.Text>
+                    </RX.Button>
+                    <RX.Button style={ TodoStyles.styles.submitButton } onPress={ this._onPressCreateNewTodo }>
+                        <RX.Text style={ TodoStyles.styles.buttonText }>
+                            Login Test
                         </RX.Text>
                     </RX.Button>
                 </RX.View>
