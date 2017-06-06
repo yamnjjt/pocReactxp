@@ -36,7 +36,7 @@ class TodoListPanel extends RX.Component<SecondPanelProps, null> {
                             Add reminder
                         </RX.Text>
                     </RX.Button>
-                    <RX.Button style={ TodoStyles.styles.submitButton } onPress={ this._onPressCreateNewTodo }>
+                    <RX.Button style={ TodoStyles.styles.submitButton } onPress={ this._onPressLogin }>
                         <RX.Text style={ TodoStyles.styles.buttonText }>
                             Login Test
                         </RX.Text>
@@ -52,6 +52,10 @@ class TodoListPanel extends RX.Component<SecondPanelProps, null> {
 
     private _onPressCreateNewTodo = () => {
         this.props.onShowTodoPanel();
+    }
+
+    private _onPressLogin = () => {
+        this.props.onShowLoginPanel();
     }
 }
 

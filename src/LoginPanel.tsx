@@ -6,16 +6,15 @@
 */
 
 import RX = require('reactxp');
-import TodoStyles = require('./TodoStyles');
-import TodosStore = require('./TodosStore')
+import LoginStyles = require('./LoginStyles');
 
-interface TodoPanelProps {
+interface LoginPanelProps {
     onNavigateBack: () => void;
     onSubmitLogin: () => void;
     onCancelLogin: () => void;
 }
 
-interface TodoPanelState {
+interface LoginPanelState {
     username?: string;
     password?: string;
 }
@@ -24,13 +23,15 @@ const _styles = {
     editTodoItem: RX.Styles.createTextStyle({
         margin: 8,
         height: 32,
-        fontSize: TodoStyles.fontSizes.size20,
+        fontSize: LoginStyles.fontSizes.size20,
         alignSelf: 'stretch',
         backgroundColor: 'transparent'
     })
 };
 
-class LoginPanel extends RX.Component<TodoPanelProps, TodoPanelState> {
+const _modalId  = 'ErrorDialog';
+
+class LoginPanel extends RX.Component<LoginPanelProps, LoginPanelState> {
     constructor() {
         super();
 
@@ -39,55 +40,105 @@ class LoginPanel extends RX.Component<TodoPanelProps, TodoPanelState> {
 
     render() {
         return (
-            <RX.View style={ TodoStyles.styles.container }>                
-                <RX.View style={ [TodoStyles.styles.header, RX.StatusBar.isOverlay() && TodoStyles.styles.headerWithStatusBar] }>
-                    <RX.Button style={ TodoStyles.styles.cancelButton } onPress={ this._onPressBack }>
-                        <RX.Text style={ TodoStyles.styles.buttonText }>
+            <RX.View style={ LoginStyles.styles.container }>                
+                <RX.View style={ [LoginStyles.styles.header, RX.StatusBar.isOverlay() && LoginStyles.styles.headerWithStatusBar] }>
+                    <RX.Button style={ LoginStyles.styles.cancelButton } onPress={ this._onPressBack }>
+                        <RX.Text style={ LoginStyles.styles.buttonText }>
                             Cancel
                         </RX.Text>
                     </RX.Button>
 
                     <RX.Button
-                        style={ TodoStyles.styles.submitButton }
+                        style={ LoginStyles.styles.submitButton }
                         onPress={ this._onPressSave }
-                        disabled={ !this.state.todoText }
+                        disabled={ !this._onValidated }
                     >
-                        <RX.Text style={ TodoStyles.styles.buttonText }>
-                            Save
+                        <RX.Text style={ LoginStyles.styles.buttonText }>
+                            Login
                         </RX.Text>
                     </RX.Button>
                 </RX.View>
 
+                <RX.Text>
+                    Username
+                </RX.Text>
                 <RX.TextInput
                     style={ _styles.editTodoItem }
-                    value={ this.state.todoText }
-                    placeholder={ 'Enter reminder' }
-                    placeholderTextColor={ TodoStyles.controlColors.placeholderText }
-                    onChangeText={ this._onChangeText }
+                    value={ this.state.username }
+                    placeholder={ 'Enter username' }
+                    placeholderTextColor={ LoginStyles.controlColors.placeholderText }
+                    onChangeText={ this._onChangeUsername }
                     autoFocus={ true }
                     textAlign={ 'left' }
+                />
+
+                <RX.Text>
+                    Password
+                </RX.Text>
+                <RX.TextInput
+                    style={ _styles.editTodoItem }
+                    value={ this.state.password }
+                    placeholder={ 'Enter password' }
+                    placeholderTextColor={ LoginStyles.controlColors.placeholderText }
+                    onChangeText={ this._onChangePassword }
+                    autoFocus={ true }
+                    textAlign={ 'left' }
+                    secureTextEntry={ true }
                 />
             </RX.View>
         );
     }
 
+    private _onValidated = () => {
+        return true;
+    }
+
     private _onPressBack = () => {
-        this.setState({ todoText: '' });
+        this.setState({ username: '' });
+        this.setState({ password: '' });
         this.props.onNavigateBack();
     }
 
-    private _onChangeText = (newText: string) => {
-        this.setState({ todoText: newText });
+    private _onChangeUsername = (newText: string) => {
+        this.setState({ username: newText });
+    }
+    private _onChangePassword = (newText: string) => {
+        this.setState({ password: newText });
     }
 
     private _onPressSave = () => {
-        if (this.state.todoText) {
-            TodosStore.addTodo(this.state.todoText)
-    
-            this.setState({ todoText: '' });
-            this.props.onNavigateBack();
+        if (this.state.username && this.state.password) {   
+            this._displayLoginMessage(); 
+            this.setState({ username: '' });
+            this.setState({ password: '' });
+            //this.props.onNavigateBack();
         }
     }
+
+    private _displayLoginMessage = () => {
+        
+        let dialog = (
+            <RX.View>
+                <RX.Text>
+                    'Username:' { this.state.username }
+                    'Password:' { this.state.password }
+                </RX.Text>
+                <RX.Button
+                        onPress={ this._onOkButtonPress }>
+                    <RX.Text>
+                        'OK'
+                    </RX.Text>
+                </RX.Button>
+            </RX.View>
+        );
+
+        RX.Modal.show(dialog, _modalId);
+    }
+
+    private _onOkButtonPress = (e: RX.Types.SyntheticEvent) => {
+        RX.Modal.dismiss(_modalId);
+    };
+
 }
 
-export = EditTodoPanel;
+export = LoginPanel;

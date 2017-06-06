@@ -6,6 +6,8 @@ import RX = require('reactxp');
 
 import EditTodoPanel = require('./EditTodoPanel');
 import TodoListPanel = require('./TodoListPanel');
+import LoginPanel = require('./LoginPanel');
+
 import TotoStyles = require('./TodoStyles');
 
 enum NavigationRouteId {
@@ -51,6 +53,7 @@ class TodoAppRootView extends RX.Component<null, null> {
                     <TodoListPanel
                         onNavigateBack={ this._onPressBack }
                         onShowTodoPanel={ this._onShowTodoPanel }
+                        onShowLoginPanel={ this._onShowLoginPanel }
                     />
                 );
 
@@ -66,7 +69,11 @@ class TodoAppRootView extends RX.Component<null, null> {
 
             case NavigationRouteId.LoginPanel:
                 return(
-
+                    <LoginPanel 
+                        onNavigateBack={ this._onPressBack }
+                        onSubmitLogin={ this._onPressBack }
+                        onCancelLogin={ this._onPressBack }
+                    />                    
                 );
         }
 
@@ -83,9 +90,21 @@ class TodoAppRootView extends RX.Component<null, null> {
         });
     }
 
+    private _onShowLoginPanel = () => {
+        this._navigator.push({
+            routeId: NavigationRouteId.LoginPanel,
+            sceneConfigType: RX.Types.NavigatorSceneConfigType.FloatFromRight,
+            customSceneConfig: {
+                hideShadow: true
+            }
+        });
+    }
+
     private _onPressBack = () => {
         this._navigator.pop();
     }
+
+    
 }
 
 export = TodoAppRootView;

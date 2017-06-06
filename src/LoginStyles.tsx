@@ -14,7 +14,7 @@ class LoginStyles {
    };
 
     static controlColors = {
-        defaultActionButtonColor: TodoStyles.color.black,
+        defaultActionButtonColor: LoginStyles.color.black,
         saveActionButtonCollor: '#666',
         destroyActionButtonCollor: '#FF8C00',
         contentBackground: '#eee',
@@ -43,25 +43,25 @@ class LoginStyles {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: TodoStyles.controlColors.headerBackground
+            backgroundColor: LoginStyles.controlColors.headerBackground
         }),
         container: RX.Styles.createViewStyle({
             flex: 1,
             alignSelf: 'stretch',
-            backgroundColor: TodoStyles.controlColors.contentBackground
+            backgroundColor: LoginStyles.controlColors.contentBackground
         }),
         cancelButton: RX.Styles.createViewStyle({
-            margin: TodoStyles.buttonBorders.margin,
-            borderRadius: TodoStyles.buttonBorders.radius,
-            backgroundColor: TodoStyles.controlColors.defaultActionButtonColor
+            margin: LoginStyles.buttonBorders.margin,
+            borderRadius: LoginStyles.buttonBorders.radius,
+            backgroundColor: LoginStyles.controlColors.defaultActionButtonColor
         }),
         submitButton: RX.Styles.createViewStyle({
-            margin: TodoStyles.buttonBorders.margin,
-            borderRadius: TodoStyles.buttonBorders.radius,
-            backgroundColor: TodoStyles.controlColors.saveActionButtonCollor
+            margin: LoginStyles.buttonBorders.margin,
+            borderRadius: LoginStyles.buttonBorders.radius,
+            backgroundColor: LoginStyles.controlColors.saveActionButtonCollor
         }),
         buttonText: RX.Styles.createTextStyle({
-            fontSize: TodoStyles.fontSizes.size14,
+            fontSize: LoginStyles.fontSizes.size14,
             marginVertical: 6,
             marginHorizontal: 12,
             color: 'white'
@@ -69,4 +69,4 @@ class LoginStyles {
     };
 }
 
-export = TodoStyles;
+export = LoginStyles;
